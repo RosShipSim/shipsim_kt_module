@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>451</width>
+    <height>255</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ShipController</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>421</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <widget class="QDial" name="rudderDial">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>100</y>
+      <width>131</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>-45</number>
+    </property>
+    <property name="maximum">
+     <number>45</number>
+    </property>
+    <property name="invertedAppearance">
+     <bool>false</bool>
+    </property>
+    <property name="invertedControls">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rudderLabel">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>80</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rudder:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="rudderDialValueLabel">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>80</y>
+      <width>31</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="degreeLabel">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>80</y>
+      <width>51</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>degree</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ULabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>59</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>U [m/s]</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="UEdit">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>20</y>
+      <width>113</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0.40</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startButton">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>20</y>
+      <width>61</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="samplingFreqLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>sampling freq [1/s]</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="samplingFreqEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>60</y>
+      <width>71</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1.0</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>startButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>clicked_start()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>298</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stopButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>clicked_stop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>367</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>387</x>
+     <y>238</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rudderDial</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>change_rudder_angle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>clicked_update()</slot>
+  <slot>clicked_start()</slot>
+  <slot>clicked_stop()</slot>
+  <slot>change_rudder_angle()</slot>
+ </slots>
+</ui>
