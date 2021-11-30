@@ -22,7 +22,7 @@ class KtModelNode(Node):
         self,
     ):
         """init."""
-        super().__init__("ship_model")
+        super().__init__("model", namespace="ship1")
         self.declare_parameter("K", 0.280)
         self.declare_parameter("T", 10.0)
         self.declare_parameter("publish_address", "/ship1/cmd_vel")

@@ -19,7 +19,7 @@ class KtControllerNode(Node):
 
     def __init__(self, timer_period=1.0):
         """init."""
-        super().__init__("ship_controller")
+        super().__init__("controller", namespace="ship1")
 
         self.declare_parameter("publish_address", "/ship1/control")
         publish_address = (
