@@ -26,7 +26,7 @@ class KtModelNode(Node):
         self.declare_parameter("K", 0.280)
         self.declare_parameter("T", 10.0)
         self.declare_parameter("publish_address", "/ship1/cmd_vel")
-        self.declare_parameter("subscript_address", "ship1/control")
+        self.declare_parameter("subscribe_address", "/ship1/control_input")
         self.declare_parameter("delta_time", 0.01)
 
         publish_address = (
@@ -34,11 +34,11 @@ class KtModelNode(Node):
         )
         self.pub_cmd_vel = self.create_publisher(Twist, publish_address, 10)
 
-        subscript_address = (
-            self.get_parameter("subscript_address").get_parameter_value().string_value
+        subscribe_address = (
+            self.get_parameter("subscribe_address").get_parameter_value().string_value
         )
         self.subscription = self.create_subscription(
-            KTControl, subscript_address, self.listener_callback, 10
+            KTControl, subscribe_address, self.listener_callback, 10
         )
 
         delta_time = self.get_parameter("delta_time").value

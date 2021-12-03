@@ -21,7 +21,7 @@ class KtControllerNode(Node):
         """init."""
         super().__init__("controller", namespace="ship1")
 
-        self.declare_parameter("publish_address", "/ship1/control")
+        self.declare_parameter("publish_address", "/ship1/cmd_control")
         publish_address = (
             self.get_parameter("publish_address").get_parameter_value().string_value
         )
