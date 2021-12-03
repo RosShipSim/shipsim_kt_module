@@ -20,32 +20,39 @@ class KtModelNode(Node):
 
     def __init__(
         self,
-        K=0.280,
-        T=10.0,
-        publish_address="/ship1/cmd_vel",
-        timer_period=0.01,
     ):
         """init."""
-        super().__init__("ship_model")
-        self.delta_time = timer_period
-        self.K = K
-        self.T = T
+        super().__init__("model", namespace="ship1")
+        self.declare_parameter("K", 0.280)
+        self.declare_parameter("T", 10.0)
+        self.declare_parameter("publish_address", "/ship1/cmd_vel")
+        self.declare_parameter("subscribe_address", "/ship1/control_input")
+        self.declare_parameter("delta_time", 0.01)
+
+        publish_address = (
+            self.get_parameter("publish_address").get_parameter_value().string_value
+        )
         self.pub_cmd_vel = self.create_publisher(Twist, publish_address, 10)
 
+        subscribe_address = (
+            self.get_parameter("subscribe_address").get_parameter_value().string_value
+        )
         self.subscription = self.create_subscription(
-            KTControl, "ship1/control", self.listener_callback, 10
+            KTControl, subscribe_address, self.listener_callback, 10
         )
 
-        self.timer = self.create_timer(timer_period, self.sender_callback)
+        delta_time = self.get_parameter("delta_time").value
+        self.timer = self.create_timer(delta_time, self.sender_callback)
 
     def sender_callback(self):
         """sender_callback."""
+        delta_time = self.get_parameter("delta_time").value
         r_now = self.cmd_vel_Twist.angular.z
         self.cmd_vel_Twist = self.get_twist_from_KT(
             r_now,
             self.u,
             self.rudder_angle_degree,
-            self.delta_time,
+            delta_time,
         )
         self.pub_cmd_vel.publish(self.cmd_vel_Twist)
         # self.get_logger().info('Publishing: "%s"' % self.cmd_vel_Twist)
@@ -53,9 +60,13 @@ class KtModelNode(Node):
     def get_twist_from_KT(self, r_now, u, rudder_angle_degree, delta_time):
         """get_twist_from_KT."""
         twist = Twist()
+
+        K = self.get_parameter("K").value
+        T = self.get_parameter("T").value
+
         twist.linear.x = u
         rudder_angle = rudder_angle_degree * np.pi / 180.0
-        r_dot = (self.K * rudder_angle - r_now) / self.T
+        r_dot = (K * rudder_angle - r_now) / T
         twist.angular.z = r_now + r_dot * delta_time
         return twist
 
