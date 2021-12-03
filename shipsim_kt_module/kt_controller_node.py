@@ -17,7 +17,7 @@ from shipsim_kt_module.kt_controller_ui import Ui_Dialog
 class KtControllerNode(Node):
     """ControllerNode."""
 
-    def __init__(self, timer_period=1.0):
+    def __init__(self):
         """init."""
         super().__init__("controller", namespace="ship1")
 
